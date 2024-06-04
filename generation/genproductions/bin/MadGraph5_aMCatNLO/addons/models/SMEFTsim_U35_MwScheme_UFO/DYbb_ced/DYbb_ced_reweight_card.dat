@@ -1,0 +1,353 @@
+change rwgt_dir rwgt
+
+#[1/88]
+launch --rwgt_name=Ced_-100
+set SMEFT 43 -100
+
+#[2/88]
+launch --rwgt_name=Ced_-70
+set SMEFT 43 -70
+
+#[3/88]
+launch --rwgt_name=Ced_-50
+set SMEFT 43 -50
+
+#[4/88]
+launch --rwgt_name=Ced_-35 
+set SMEFT 43 -35
+
+#[5/88]
+launch --rwgt_name=Ced_-20
+set SMEFT 43 -20
+
+#[6/88]
+launch --rwgt_name=Ced_-19p5 
+set SMEFT 43 -19.5
+
+#[7/88]
+launch --rwgt_name=Ced_-19
+set SMEFT 43 -19
+
+#[8/88]
+launch --rwgt_name=Ced_-18p5 
+set SMEFT 43 -18.5
+
+#[9/88]
+launch --rwgt_name=Ced_-18
+set SMEFT 43 -18
+
+#[10/88]
+launch --rwgt_name=Ced_-17p5
+set SMEFT 43 -17.5
+
+#[11/88]
+launch --rwgt_name=Ced_-17
+set SMEFT 43 -17
+
+#[12/88]
+launch --rwgt_name=Ced_-16p5 
+set SMEFT 43 -16.5
+
+#[13/88]
+launch --rwgt_name=Ced_-16
+set SMEFT 43 -16
+
+#[14/88]
+launch --rwgt_name=Ced_-15p5
+set SMEFT 43 -15.5
+
+#[15/88]
+launch --rwgt_name=Ced_-15
+set SMEFT 43 -15
+
+#[16/88]
+launch --rwgt_name=Ced_-14p5 
+set SMEFT 43 -14.5
+
+#[17/88]
+launch --rwgt_name=Ced_-14
+set SMEFT 43 -14
+
+#[18/88]
+launch --rwgt_name=Ced_-13p5 
+set SMEFT 43 -13.5
+
+#[19/88]
+launch --rwgt_name=Ced_-13
+set SMEFT 43 -13
+
+#[20/88]
+launch --rwgt_name=Ced_-12p5 
+set SMEFT 43 -12.5
+
+#[21/88]
+launch --rwgt_name=Ced_-12
+set SMEFT 43 -12
+
+#[22/88]
+launch --rwgt_name=Ced_-11p5 
+set SMEFT 43 -11.5
+
+#[23/88]
+launch --rwgt_name=Ced_-11
+set SMEFT 43 -11
+
+#[24/88]
+launch --rwgt_name=Ced_-10p5 
+set SMEFT 43 -10.5
+
+#[25/88]
+launch --rwgt_name=Ced_-10
+set SMEFT 43 -10
+
+#[26/88]
+launch --rwgt_name=Ced_-9p5 
+set SMEFT 43 -9.5
+
+#[27/88]
+launch --rwgt_name=Ced_-9
+set SMEFT 43 -9
+
+#[28/88]
+launch --rwgt_name=Ced_-8p5 
+set SMEFT 43 -8.5
+
+#[29/88]
+launch --rwgt_name=Ced_-8
+set SMEFT 43 -8
+
+#[30/88]
+launch --rwgt_name=Ced_-7p5 
+set SMEFT 43 -7.5
+
+#[31/88]
+launch --rwgt_name=Ced_-7
+set SMEFT 43 -7
+
+#[32/88]
+launch --rwgt_name=Ced_-6p5 
+set SMEFT 43 -6.5
+
+#[33/88]
+launch --rwgt_name=Ced_-6
+set SMEFT 43 -6
+
+#[34/88]
+launch --rwgt_name=Ced_-5p5 
+set SMEFT 43 -5.5
+
+#[35/88]
+launch --rwgt_name=Ced_-5
+set SMEFT 43 -5
+
+#[36/88]
+launch --rwgt_name=Ced_-4p5 
+set SMEFT 43 -4.5
+
+#[37/88]
+launch --rwgt_name=Ced_-4
+set SMEFT 43 -4
+
+#[38/88]
+launch --rwgt_name=Ced_-3p5 
+set SMEFT 43 -3.5
+
+#[39/88]
+launch --rwgt_name=Ced_-3
+set SMEFT 43 -3
+
+#[40/88]
+launch --rwgt_name=Ced_-2p5 
+set SMEFT 43 -2.5
+
+#[41/88]
+launch --rwgt_name=Ced_-2
+set SMEFT 43 -2
+
+#[42/88]
+launch --rwgt_name=Ced_-1p5 
+set SMEFT 43 -1.5
+
+#[43/88]
+launch --rwgt_name=Ced_-1
+set SMEFT 43 -1
+
+#[44/88]
+launch --rwgt_name=Ced_-0p5 
+set SMEFT 43 -0.5
+
+#[45/88]
+launch --rwgt_name=Ced_0
+set SMEFT 43 0
+
+#[46/88]
+launch --rwgt_name=Ced_0p5 
+set SMEFT 43 0.5
+
+#[47/88]
+launch --rwgt_name=Ced_1
+set SMEFT 43 1
+
+#[48/88]
+launch --rwgt_name=Ced_1p5 
+set SMEFT 43 1.5
+
+#[49/88]
+launch --rwgt_name=Ced_2
+set SMEFT 43 2
+
+#[50/88]
+launch --rwgt_name=Ced_2p5
+set SMEFT 43 2.5
+
+#[51/88]
+launch --rwgt_name=Ced_3
+set SMEFT 43 3
+
+#[52/88]
+launch --rwgt_name=Ced_3p5
+set SMEFT 43 3.5
+
+#[53/88]
+launch --rwgt_name=Ced_4
+set SMEFT 43 4
+
+#[54/88]
+launch --rwgt_name=Ced_4p5
+set SMEFT 43 4.5
+
+#[55/88]
+launch --rwgt_name=Ced_5
+set SMEFT 43 5
+
+#[56/88]
+launch --rwgt_name=Ced_5p5
+set SMEFT 43 5.5
+
+#[57/88]
+launch --rwgt_name=Ced_6
+set SMEFT 43 6
+
+#[58/88]
+launch --rwgt_name=Ced_6p5
+set SMEFT 43 6.5
+
+#[59/88]
+launch --rwgt_name=Ced_7
+set SMEFT 43 7
+
+#[60/88]
+launch --rwgt_name=Ced_7p5
+set SMEFT 43 7.5
+
+#[61/88]
+launch --rwgt_name=Ced_8
+set SMEFT 43 8
+
+#[62/88]
+launch --rwgt_name=Ced_8p5
+set SMEFT 43 8.5
+
+#[63/88]
+launch --rwgt_name=Ced_9
+set SMEFT 43 9
+
+#[64/88]
+launch --rwgt_name=Ced_9p5
+set SMEFT 43 9.5
+
+#[65/88]
+launch --rwgt_name=Ced_10
+set SMEFT 43 10
+
+#[66/88]
+launch --rwgt_name=Ced_10p5
+set SMEFT 43 10.5
+
+#[67/88]
+launch --rwgt_name=Ced_11
+set SMEFT 43 11
+
+#[68/88]
+launch --rwgt_name=Ced_11p5
+set SMEFT 43 11.5
+
+#[69/88]
+launch --rwgt_name=Ced_12
+set SMEFT 43 12
+
+#[70/88]
+launch --rwgt_name=Ced_12p5
+set SMEFT 43 12.5
+
+#[71/88]
+launch --rwgt_name=Ced_13
+set SMEFT 43 13
+
+#[72/88]
+launch --rwgt_name=Ced_13p5
+set SMEFT 43 13.5
+
+#[73/88]
+launch --rwgt_name=Ced_14
+set SMEFT 43 14
+
+#[74/88]
+launch --rwgt_name=Ced_14p5
+set SMEFT 43 14.5
+
+#[75/88]
+launch --rwgt_name=Ced_15
+set SMEFT 43 15
+
+#[76/88]
+launch --rwgt_name=Ced_15p5
+set SMEFT 43 15.5
+
+#[77/88]
+launch --rwgt_name=Ced_16
+set SMEFT 43 16
+
+#[78/88]
+launch --rwgt_name=Ced_16p5
+set SMEFT 43 16.5
+
+#[79/88]
+launch --rwgt_name=Ced_17
+set SMEFT 43 17
+
+#[80/88]
+launch --rwgt_name=Ced_17p5
+set SMEFT 43 17.5
+
+#[81/88]
+launch --rwgt_name=Ced_18
+set SMEFT 43 18
+
+#[82/88]
+launch --rwgt_name=Ced_18p5
+set SMEFT 43 18.5
+
+#[83/88]
+launch --rwgt_name=Ced_19
+set SMEFT 43 19
+
+#[84/88]
+launch --rwgt_name=Ced_19p5
+set SMEFT 43 19.5
+
+#[85/88]
+launch --rwgt_name=Ced_20
+set SMEFT 43 20
+
+#[86/88]
+launch --rwgt_name=Ced_35
+set SMEFT 43 35
+
+#[87/88]
+launch --rwgt_name=Ced_70
+set SMEFT 43 70
+
+#[88/88]
+launch --rwgt_name=Ced_100
+set SMEFT 43 100
