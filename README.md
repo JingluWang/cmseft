@@ -12,7 +12,7 @@ interactive machine, e.g. [FNAL LPC](https://uscms.org/uscms_at_work/physics/com
 
 To start, please clone this repository in a directory that has sufficient quota for the tutorial (at least 50GB),
 ```bash
-git clone git@github.com:FNALLPC/cmseft2023.git
+git clone git@github.com:FNALLPC/cmseft.git
 ```
 
 ## Generation
@@ -25,11 +25,11 @@ For this exercise we will generate a $t\bar{t}$ semileptonic sample with one ext
 
 To start, from the main area of this repository, run
 ```bash
-cd cmseft2023/generation
+cd cmseft/generation
 . setup.sh
 ```
 this sets up the CMS [genproductions](https://github.com/cms-sw/genproductions) git repository
-and a local copy of `CMSSW_10_6_26` with additional NanoGEN tools to record EFT weights.
+and a local copy of `CMSSW_13_0_14` with additional NanoGEN tools to record EFT weights.
 
 <details>
 <summary>Alternative: setup without CMSSW, using LCG</summary>
@@ -86,11 +86,19 @@ nohup ./submit_cmsconnect_gridpack_generation.sh TT01j_tutorial addons/cards/SME
 
 ### Generating EDM GEN files
 
+Exit the singularity container from the previous step. If you're running on an EL8 machine (e.g. `lxplus8.cern.ch` or `cmslpc-el8.fnal.gov`) you can run the following commands without a container.
+Navigate back to your EFT tutorial work directory.
+
+``` bash
+cd generation/
+pushd CMSSW_13_0_14/src && cmsenv && popd
+```
+
 Producing GEN files from the above gridpack is usually straight forward and similar to other CMS samples.
 We will use a fragment file that defines the settings that will be used for decays, parton shower and hadronization in pythia.
 For convenience, the gridpack defined in the fragment points to a validated copy at `/eos/uscms/store/user/dspitzba/TT01j_tutorial_slc7_amd64_gcc700_CMSSW_10_6_19_tarball.tar.xz`.
 
-You can change the path to the gridpack in the file in `cmseft2023/generation/CMSSW_10_6_26/src/Configuration/GenProduction/python/pythia_fragment.py`:
+You can change the path to the gridpack in the file in `cmseft/generation/CMSSW_13_0_14/src/Configuration/GenProduction/python/pythia_fragment.py`:
 
 ``` python
 externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
@@ -114,12 +122,12 @@ cmsDriver.py Configuration/GenProduction/python/pythia_fragment.py \
     --python_filename gen_cfg.py \
     --eventcontent RAWSIM,LHE \
     --datatier GEN,LHE \
-    --conditions 106X_mc2017_realistic_v6 \
-    --beamspot Realistic25ns13TeVEarly2017Collision \
+    --conditions 130X_mcRun3_2023_realistic_v14 \
+    --beamspot Realistic25ns13p6TeVEarly2023Collision \
     --step LHE,GEN \
     --nThreads 1 \
     --geometry DB:Extended \
-    --era Run2_2017 \
+    --era Run3 \
     --customise Configuration/DataProcessing/Utils.addMonitoring \
     --customise_commands "process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=123" \
     --fileout file:gen_123.root \
@@ -165,15 +173,17 @@ We will generate a few events directly from the gridpack created in the previous
 Make sure you are in `cmseft2023/generation/` and have a CMSSW environment set (e.g. run `. setup.sh` again to be sure).
 
 A cmsRun config file can be created 
+
 ``` bash
 cmsDriver.py Configuration/GenProduction/python/pythia_fragment.py \
     --python_filename nanogen_cfg.py --eventcontent NANOAODGEN \
     --customise Configuration/DataProcessing/Utils.addMonitoring --datatier NANOAOD \
     --customise_commands "process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=123" \
-    --fileout file:nanogen_123.root --conditions 106X_mcRun2_asymptotic_v13 \
-    --beamspot Realistic25ns13TeV2016Collision --step LHE,GEN,NANOGEN --geometry DB:Extended --era Run2_2016 --no_exec --mc -n 100
+    --fileout file:nanogen_123.root --conditions 130X_mcRun3_2023_realistic_v14 --beamspot Realistic25ns13p6TeVEarly2023Collision \
+    --step LHE,GEN,NANOGEN --geometry DB:Extended --era Run3 --no_exec --mc -n 100
 
 ```
+
 The CMSSW area that has been set up in the previous step already includes a useful tool that extracts the coefficients of the polynomial fit.
 You'll learn more about the coefficients and how to use them in a later part.
 Documentation of the used package can be found on the [mgprod github repo](https://github.com/TopEFT/mgprod#additional-notes-on-the-production-of-naod-samples).
@@ -241,22 +251,37 @@ Before going to the next section, run
 ```bash
 ./dump_templates.py histos.pkl.gz
 ```
-which will write two files into `../statistics/` directory for use with the next section.
+which will write two files: `templates.root` and `scaling.pkl.gz` for use with the next section.
 
 ## Statistics
 
 This section of the tutorial will demonstrate how to build a model from the
 template histograms and run fits using the
 [Combine](https://cms-analysis.github.io/HiggsAnalysis-CombinedLimit/) tool.
+The section uses three files from the previous section, but they have been included in the repository for convenience:
+- `templates.root` contain the histograms for the nominal samples
+- `scaling.pkl.gz` contains the per-bin scaling as a function of the EFT parameters
+- `quad_fit_coeff.json` contains the per-channel scaling (for normalization morphing instead of per-bin morphing)
 
 This section will be run outside of the conda enviornment used so far. To exit the environment, run
-```
+```bash
 conda deactivate
 ```
 
 To start, from the main area of this repository, run
 ```bash
 cd statistics
+```
+
+Start up the singularity container for CMSSW with CentOS7:
+```bash
+cmssw-el7 --bind `readlink -f ${HOME}/nobackup/` --bind /cvmfs
+```
+
+If you are running on cmslpc, the nobackup directory will now be mounted under its true path (not the link nobackup). You will need to return to the statistics directory.
+
+Set up CMSSW and combine by running
+```bash
 . setup.sh
 ```
 
@@ -274,35 +299,36 @@ Run
 text2workspace.py signal_region_card.txt --X-allow-no-background -P HiggsAnalysis.CombinedLimit.InterferenceModels:interferenceModel \
   --PO verbose --PO scalingData=scaling.pkl.gz -o workspace.root
 ```
-which implements the [interferenceModel](https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit/blob/interference/docs/part2/physicsmodels.md#multi-process-interference)
+which implements the [interferenceModel](https://cms-analysis.github.io/HiggsAnalysis-CombinedLimit/latest/part2/physicsmodels/#multi-process-interference)
 physics model in combine using the scaling data constructed at the end of the previous section.
 
 ### Running fits and scans
-```
+```bash
 combine -M MultiDimFit workspace.root --freezeParameters cHtbIm,cHtbRe,ctGIm,ctWRe,ctWIm,ctBIm,ctBRe \
   --redefineSignalPOIs cHt,ctGRe --setParameters cHt=0,ctGRe=0 --algo singles
 ```
 
 To perform a one-dimensional likelihood scan on cHt (freezing all other WC to 0), run
-```
+```bash
 combineTool.py workspace.root -M MultiDimFit --algo grid --points 10 \
     --freezeParameters cHtbIm,cHtbRe,ctGIm,ctWRe,ctWIm,ctBIm,ctBRe,ctGRe \
     --redefineSignalPOIs cHt -n Scan1D.cHt
 ```
 To plot the likelihood scan, run
-```
+```bash
 python plot1d.py -p cHt
 ```
 An analogous set of commands can be used to generate 1D likelihood scans of the other WC.
 
 To perform a two-dimensional likelihood scan on cHt and ctGRe (freezing all other WC to 0), run
-```
+```bash
 combineTool.py workspace.root -M MultiDimFit --algo grid --points 100 \
     --freezeParameters cHtbIm,cHtbRe,ctGIm,ctWRe,ctWIm,ctBIm,ctBRe \
-    --redefineSignalPOIs cHt,ctGRe -n Scan2D.cHt.ctGRe
+    --redefineSignalPOIs cHt,ctGRe -n Scan2D.cHt.ctGRe \
+    --setParameterRanges cHt=-40,30:ctGRe=-1,1
 ```
 To plot the 2D likelihood scan, run
-```
+```bash
 python plot2d.py -p cHt,ctGRe
 ```
 Again, analogous commands can be used to generate the 2D likelihood scan for other combinations of WC.
@@ -310,11 +336,14 @@ Again, analogous commands can be used to generate the 2D likelihood scan for oth
 ### PCA
 Run
 ```bash
-combine -M MultiDimFit workspace.root --skipInitialFit --robustHesse 1
+combine -M MultiDimFit workspace.root --skipInitialFit --robustHesse 1 -n .WCbasis
 ```
 which computes the Hessian of the likelihood at the initial point. Since we have an Asimov dataset, this
 initial point should be a global minimum, and we can use it to understand what, if any, degeneracies in the parameters
-exist at this point. The command will output a file we can look at
+exist at this point. When we run it, both the Hessian and its inverse (the covariance matrix) will be calculated. However,
+likely if there are degeneracies the hessian will be singular so the covariance calculation will fail.
+
+The command will output a file we can look at
 ```
 $ root -l robustHesseTest.root
 root [0]
@@ -345,3 +374,10 @@ Vector (16)  is as follows
   15 |0.00125546
 ```
 but this includes both the POIs as well as the BB-lite nuisance parameters. We need to get the _profile hessian_ to know what the POIs constraint is.
+
+To solve this, we use the `rotate.py` routine:
+```bash
+python3 rotate.py --hesse robustHesse.WCbasis.root --scalingIn scaling.pkl.gz  --scaleByEigenvalue
+text2workspace.py signal_region_card.txt --X-allow-no-background -P HiggsAnalysis.CombinedLimit.InterferenceModels:interferenceModel \
+  --PO verbose --PO scalingData=rotated_scaling.pkl.gz -o workspace_rotated.root
+```
